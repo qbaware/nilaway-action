@@ -22,21 +22,20 @@ In short, go to your repository's `Settings` tab and add the variables under `Se
 Add the following `deploy` job in your Action.
 
 ``` yaml
-nil-check:
+static-analysis:
   # Assuming the `build` job builds the project,
   # we define a dependency on it.
   needs: build
 
   runs-on: ubuntu-latest
   steps:
-    - name: Scan using nilaway
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Nil panic checks
       uses: qbaware/nilaway-action@v0
       with:
-        package-to-scan: "./..."
+        package-to-scan: ./...
 ```
 
 ### That's It 🎉
-
-### Sample Workflow View
-
-![Sample workflow](/resources/sample-workflow.png)
