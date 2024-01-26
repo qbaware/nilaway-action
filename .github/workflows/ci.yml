@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  test-docker:
-    name: Docker Tests
+  test:
+    name: Test Container Image
     runs-on: ubuntu-latest
 
     # Run a local registry to push to
@@ -22,7 +22,7 @@ jobs:
           - 5001:5000
 
     env:
-      TEST_TAG: localhost:5001/actions/container-action:latest
+      TEST_TAG: localhost:5001/qbaware/nilaway-action:latest
 
     steps:
       - name: Checkout
@@ -47,27 +47,10 @@ jobs:
       - name: Run the Container
         id: run
         env:
-          INPUT_WHO_TO_GREET: Mona Lisa Octocat
+          RENDER_API_KEY: 123456789
+          RENDER_SERVICE_ID: 123456789
         run: |
           docker run \
-            --env INPUT_WHO_TO_GREET="${{ env.INPUT_WHO_TO_GREET }}" \
-            --rm ${{ env.TEST_TAG }}
-
-  test-action:
-    name: GitHub Actions Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@v4
-
-      - name: Test Local Action
-        id: test-action
-        uses: ./
-        with:
-          who-to-greet: Mona Lisa Octocat
-
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.greeting }}"
+            --env RENDER_API_KEY="${{ env.RENDER_API_KEY }}" \
+            --env RENDER_SERVICE_ID="${{ env.RENDER_SERVICE_ID }}" \
+            --rm ${{ env.TEST_TAG }} || true

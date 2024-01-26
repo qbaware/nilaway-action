@@ -1,11 +1,9 @@
-# Set the base image to use for subsequent instructions
-FROM alpine:3.19
+FROM golang:1.21
 
-# Set the working directory inside the container
-WORKDIR /usr/src
+ENV PACKAGE_TO_SCAN=$PACKAGE_TO_SCAN
 
-# Copy any source file(s) required for the action
-COPY entrypoint.sh .
+WORKDIR /github/workspace
 
-# Configure the container to be run as an executable
-ENTRYPOINT ["/usr/src/entrypoint.sh"]
+RUN go install go.uber.org/nilaway/cmd/nilaway@latest
+
+ENTRYPOINT nilaway ${PACKAGE_TO_SCAN}

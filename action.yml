@@ -1,21 +1,22 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: Nilaway Action
+description: Simple GitHub Action that detects potential Nil panics in Golang codebases
+author: Qbaware
+branding:
+  icon: check-circle
+  color: red
 
-# Define your inputs here.
 inputs:
-  who-to-greet:
-    description: 'Your input description here'
+  package-to-scan:
+    description: Package to scan
     required: true
-    default: 'World'
+    default: "./..."
 
-# Define your outputs here.
 outputs:
-  greeting:
-    description: 'Your output description here'
+  status:
+    description: Whether potential Nil panics were found
 
 runs:
   using: docker
-  image: Dockerfile
+  image: docker://ghcr.io/qbaware/nilaway-action:v0
   env:
-    INPUT_WHO_TO_GREET: ${{ inputs.who-to-greet }}
+    PACKAGE_TO_SCAN: ${{ inputs.package-to-scan }}
