@@ -46,11 +46,6 @@ jobs:
 
       - name: Run the Container
         id: run
-        env:
-          RENDER_API_KEY: 123456789
-          RENDER_SERVICE_ID: 123456789
         run: |
           docker run \
-            --env RENDER_API_KEY="${{ env.RENDER_API_KEY }}" \
-            --env RENDER_SERVICE_ID="${{ env.RENDER_SERVICE_ID }}" \
             --rm ${{ env.TEST_TAG }} || true
