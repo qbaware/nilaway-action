@@ -6,20 +6,20 @@
 
 This is a simple GitHub Action that checks Golang codebases for potential Nil panics.
 
+Behind the hood, it uses Uber's [nilaway](https://github.com/qbaware/nilaway-action)
+static analysis tool.
+More useful information about it can be found in [this](https://www.uber.com/en-GB/blog/nilaway-practical-nil-panic-detection-for-go/)
+Uber blog post or on their GitHub [repo](https://github.com/uber-go/nilaway).
+
 ## How To Use
 
-### Define The Inputs
+### Figure Out The Inputs
 
-First, make sure to define the necessary input for the Action. You'd
-have to provide a package that has to be scanned.
-
-To do this, you can leverage GitHub
-[variables](https://docs.github.com/en/actions/learn-github-actions/variables).
-In short, go to your repository's `Settings` tab and add the variables under `Secrets and variables` then `Actions`.
+As of now, the only input is the `package-to-scan` variable. This is the path to the Golang package you want to analyze. E.g. `./services/backend/...`.
 
 ### Modify Your Action
 
-Add the following `deploy` job in your Action.
+Add the following `static-analysis` job in your Action.
 
 ``` yaml
 static-analysis:
@@ -35,7 +35,7 @@ static-analysis:
     - name: Nil panic checks
       uses: qbaware/nilaway-action@v0
       with:
-        package-to-scan: ./...
+        package-to-scan: ./path/to/package/...
 ```
 
 ### That's It 🎉
