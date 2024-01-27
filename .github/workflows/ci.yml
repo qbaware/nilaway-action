@@ -44,8 +44,32 @@ jobs:
           push: true
           tags: ${{ env.TEST_TAG }}
 
-      - name: Run the Container
-        id: run
+      - name: No issues in a healthy package
+        id: test-healthy
+        working-directory: ./tests/healthypkg
         run: |
+          echo "Running Docker command in the current directory: $(pwd)"
+
           docker run \
-            --rm ${{ env.TEST_TAG }} || true
+            -v .:/github/workspace \
+            -e PACKAGE_TO_SCAN="./..." \
+            --rm ${{ env.TEST_TAG }}
+
+      - name: Spot issues in an unhealthy package
+        id: test-unhealthy
+        working-directory: ./tests/unhealthypkg
+        run: |
+          set +e  
+
+          echo "Running Docker command in the current directory: $(pwd)"
+
+          if docker run \
+            -v .:/github/workspace \
+            -e PACKAGE_TO_SCAN="./..." \
+            --rm ${{ env.TEST_TAG }}; then
+            echo "Container didn't fail when it should've"
+            exit 1
+          else
+            echo "Container failed as expected"
+            exit 0
+          fi
