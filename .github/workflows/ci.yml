@@ -49,7 +49,7 @@ jobs:
         working-directory: ./tests/healthypkg
         run: |
           docker run \
-            -e PACKAGE_TO_SCAN="./..."
+            -e PACKAGE_TO_SCAN="./..." \
             --rm ${{ env.TEST_TAG }}
 
       - name: Spot issues in an unhealthy package
@@ -59,7 +59,7 @@ jobs:
           set +e  
 
           docker run \
-            -e PACKAGE_TO_SCAN="./..."
+            -e PACKAGE_TO_SCAN="./..." \
             --rm ${{ env.TEST_TAG }}
 
           if [[ $? -eq 0 ]]; then
