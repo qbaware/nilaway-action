@@ -44,17 +44,17 @@ jobs:
           push: true
           tags: ${{ env.TEST_TAG }}
 
-      - name: Run successfully against a healthy package
+      - name: No issues in a healthy package
         id: test-healthy
-        working-directory: ./tests/healthy
+        working-directory: ./tests/healthypkg
         run: |
           docker run \
             -e PACKAGE_TO_SCAN="./..."
             --rm ${{ env.TEST_TAG }}
 
-      - name: Spot issues against an unhealthy package
+      - name: Spot issues in an unhealthy package
         id: test-unhealthy
-        working-directory: ./tests/unhealthy
+        working-directory: ./tests/unhealthypkg
         run: |
           set +e  
 
