@@ -44,8 +44,34 @@ jobs:
           push: true
           tags: ${{ env.TEST_TAG }}
 
-      - name: Run the Container
+      - name: Run the Container successfully
         id: run
         run: |
           docker run \
-            --rm ${{ env.TEST_TAG }} || true
+            --rm ${{ env.TEST_TAG }}
+
+      - name: Run successfully against a healthy package
+        id: test-healthy
+        working-directory: ./tests/healthy
+        run: |
+          docker run \
+            -e PACKAGE_TO_SCAN="./..."
+            --rm ${{ env.TEST_TAG }}
+
+      - name: Spot issues against an unhealthy package
+        id: test-unhealthy
+        working-directory: ./tests/unhealthy
+        run: |
+          set +e  
+
+          docker run \
+            -e PACKAGE_TO_SCAN="./..."
+            --rm ${{ env.TEST_TAG }}
+
+          if [[ $? -eq 0 ]]; then
+            echo "Container didn't fail when it should've"
+            exit 1
+          else
+            echo "Container failed as expected"
+            exit 0
+          fi
