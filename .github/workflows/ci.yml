@@ -51,6 +51,7 @@ jobs:
           echo "Running Docker command in the current directory: $(pwd)"
 
           docker run \
+            -v .:/github/workspace \
             -e PACKAGE_TO_SCAN="./..." \
             --rm ${{ env.TEST_TAG }}
 
@@ -63,6 +64,7 @@ jobs:
           echo "Running Docker command in the current directory: $(pwd)"
 
           if docker run \
+            -v .:/github/workspace \
             -e PACKAGE_TO_SCAN="./..." \
             --rm ${{ env.TEST_TAG }}; then
             echo "Container didn't fail when it should've"
