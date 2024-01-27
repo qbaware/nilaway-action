@@ -39,3 +39,7 @@ static-analysis:
 ```
 
 ### That's It 🎉
+
+### Sample Workflow
+
+![sample-workflow](./resources/sample-workflow.png)
