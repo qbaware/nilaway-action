@@ -46,23 +46,19 @@ jobs:
 
       - name: No issues in a healthy package
         id: test-healthy
-        working-directory: ./tests/healthypkg
         run: |
           docker run \
-            -e PACKAGE_TO_SCAN="./..." \
+            -e PACKAGE_TO_SCAN="./tests/healthypkg/..." \
             --rm ${{ env.TEST_TAG }}
 
       - name: Spot issues in an unhealthy package
         id: test-unhealthy
-        working-directory: ./tests/unhealthypkg
         run: |
           set +e  
 
-          docker run \
-            -e PACKAGE_TO_SCAN="./..." \
-            --rm ${{ env.TEST_TAG }}
-
-          if [[ $? -eq 0 ]]; then
+          if docker run \
+            -e PACKAGE_TO_SCAN="./tests/unhealthypkg/..." \
+            --rm ${{ env.TEST_TAG }}; then
             echo "Container didn't fail when it should've"
             exit 1
           else
