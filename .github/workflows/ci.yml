@@ -44,12 +44,6 @@ jobs:
           push: true
           tags: ${{ env.TEST_TAG }}
 
-      - name: Run the Container successfully
-        id: run
-        run: |
-          docker run \
-            --rm ${{ env.TEST_TAG }}
-
       - name: Run successfully against a healthy package
         id: test-healthy
         working-directory: ./tests/healthy
