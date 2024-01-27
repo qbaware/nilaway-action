@@ -9,13 +9,15 @@ This is a simple GitHub Action that checks Golang codebases for potential Nil pa
 Behind the hood, it uses Uber's [nilaway](https://github.com/qbaware/nilaway-action)
 static analysis tool.
 More useful information about it can be found in [this](https://www.uber.com/en-GB/blog/nilaway-practical-nil-panic-detection-for-go/)
-Uber blog post or on their GitHub [repo](https://github.com/uber-go/nilaway).
+Uber blog post or on their GitHub [repository](https://github.com/uber-go/nilaway).
 
 ## How To Use
 
 ### Figure Out The Inputs
 
-As of now, the only input is the `package-to-scan` variable. This is the path to the Golang package you want to analyze. E.g. `./services/backend/...`.
+As of now, the only input is the `package-to-scan` variable.
+This is the path to the Golang package you want to analyze.
+E.g. `./services/backend/...`.
 
 ### Modify Your Action
 
