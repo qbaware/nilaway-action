@@ -6,7 +6,7 @@
 
 This is a simple GitHub Action that checks Golang codebases for potential Nil panics.
 
-Behind the hood, it uses Uber's `nilaway` static analysis tool.
+Under the hood, it uses Uber's `nilaway` static analysis tool.
 More useful information about it can be found in [this](https://www.uber.com/en-GB/blog/nilaway-practical-nil-panic-detection-for-go/)
 Uber blog post or on their GitHub [repository](https://github.com/uber-go/nilaway).
 
