@@ -17,6 +17,7 @@ def test_healthy_package(client, image):
     logs = container.logs(stdout=True, stderr=True).decode("utf-8")
     print(exit_code, "\n", logs)
 
+    container.stop()
     container.remove()
 
     assert exit_code["StatusCode"] == 0
@@ -38,6 +39,7 @@ def test_unhealthy_package(client, image):
     logs = container.logs(stdout=True, stderr=True).decode("utf-8")
     print(exit_code, "\n", logs)
 
+    container.stop()
     container.remove()
 
     assert exit_code["StatusCode"] != 0
@@ -46,12 +48,14 @@ def test_unhealthy_package(client, image):
 
 def main():
     client = docker.from_env()
-    image, _ = client.images.build(path="../", tag="nilaway-action-test-image")
+    image, _ = client.images.build(path="../", tag="nilaway-action-test-image", rm=True)
 
     test_healthy_package(client, image)
     test_unhealthy_package(client, image)
 
     print("All tests passed!")
+
+    client.images.remove(image.id)
 
 
 if __name__ == "__main__":
