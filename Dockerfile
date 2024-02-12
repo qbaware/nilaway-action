@@ -1,4 +1,4 @@
-FROM golang:1.21
+FROM golang:1.22
 
 ENV PACKAGE_TO_SCAN=$PACKAGE_TO_SCAN
 
