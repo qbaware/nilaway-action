@@ -6,4 +6,4 @@ WORKDIR /github/workspace
 
 RUN go install go.uber.org/nilaway/cmd/nilaway@latest
 
-ENTRYPOINT nilaway ${PACKAGE_TO_SCAN}
+ENTRYPOINT ["sh", "-c", "nilaway $PACKAGE_TO_SCAN"]
