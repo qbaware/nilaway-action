@@ -55,7 +55,7 @@ jobs:
 
       - name: Create Release
         id: release
-        uses: issue-ops/releaser@v0.1.3
+        uses: issue-ops/releaser@v2.0.0
         with:
           tag: v${{ steps.tag.outputs.version }}
 
@@ -123,7 +123,7 @@ jobs:
       # Publish the container image
       - name: Publish Container Image
         id: publish
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         env:
           LABELS: ${{ steps.meta.outputs.labels }}
           TAGS: ${{ steps.meta.outputs.tags }}
