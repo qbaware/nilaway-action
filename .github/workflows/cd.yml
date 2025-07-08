@@ -47,7 +47,7 @@ jobs:
 
       - name: Tag Version
         id: tag
-        uses: issue-ops/semver@v2.4.0
+        uses: issue-ops/semver@v2.5.0
         with:
           manifest-path: ${{ env.MANIFEST_PATH }}
           ref: main
@@ -55,7 +55,7 @@ jobs:
 
       - name: Create Release
         id: release
-        uses: issue-ops/releaser@v2.1.0
+        uses: issue-ops/releaser@v2.2.0
         with:
           tag: v${{ steps.tag.outputs.version }}
 
