@@ -28,6 +28,8 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # <-- Fetch full Git history so Nilaway can read VCS info
 
       - name: Setup Docker BuildX
         id: setup-buildx
