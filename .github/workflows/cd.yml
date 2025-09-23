@@ -83,7 +83,7 @@ jobs:
       # - `v1`
       - name: Set Image Tags
         id: tags
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const version = '${{ needs.release.outputs.version }}'
